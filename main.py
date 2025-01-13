@@ -58,7 +58,7 @@ def get_c(file, m, signs):
 		elif signs[i] == 0:
 			c.append(-int(c_line[i+1])*c_type)
 
-	return c
+	return c, c_type
 
 
 def get_A(file, n, m, signs):
@@ -106,7 +106,7 @@ def get_input():
 
 	signs = list(map(int, file.readline().split()))
 
-	c = get_c(file, m, signs)
+	c, c_type = get_c(file, m, signs)
 
 	A, b, equal, m = get_A(file, n, m, signs)
 
@@ -124,7 +124,7 @@ def get_input():
 	print(np.array(c))
 	print()
 
-	return n, m, c, A, signs
+	return n, m, c, A, signs, c_type
 
 
 def vero(n, m, c, A):
@@ -368,7 +368,7 @@ def main():
 	Args.digits = args.digits
 	Args.policy = args.policy
 
-	n, m, c, A, signs = get_input()
+	n, m, c, A, signs, c_type = get_input()
 
 	T, n, m = vero(n, m, c, A)
 
@@ -383,7 +383,7 @@ def main():
 		print()
 
 		print("objetivo: ", end = "")
-		print(CONST.form_str.format(T[0][-1]))
+		print(CONST.form_str.format(T[0][-1]*c_type))
 
 		print("solucao: ")
 		sols = get_sol(T, n, m, signs)
